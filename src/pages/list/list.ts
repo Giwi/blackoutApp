@@ -1,37 +1,73 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import {Component} from '@angular/core';
+import {LoadingController, NavController} from 'ionic-angular';
+import {Blackout} from "../../services/blackout";
+import {PostDetail} from "../post-detail/post-detail";
 
 @Component({
-  selector: 'page-list',
-  templateUrl: 'list.html'
+    selector: 'page-list',
+    templateUrl: 'list.html'
 })
 export class ListPage {
-  selectedItem: any;
-  icons: string[];
-  items: Array<{title: string, note: string, icon: string}>;
+    loader: any;
+    newsFeed: Array<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    // If we navigated to this page, we will have an item available as a nav param
-    this.selectedItem = navParams.get('item');
-
-    // Let's populate this page with some filler content for funzies
-    this.icons = ['flask', 'wifi', 'beer', 'football', 'basketball', 'paper-plane',
-    'american-football', 'boat', 'bluetooth', 'build'];
-
-    this.items = [];
-    for (let i = 1; i < 11; i++) {
-      this.items.push({
-        title: 'Item ' + i,
-        note: 'This is item #' + i,
-        icon: this.icons[Math.floor(Math.random() * this.icons.length)]
-      });
+    constructor(private blackout: Blackout, private loadingCtrl: LoadingController, private navCtrl: NavController) {
     }
-  }
 
-  itemTapped(event, item) {
-    // That's right, we're pushing to ourselves!
-    this.navCtrl.push(ListPage, {
-      item: item
-    });
-  }
+    ngOnInit() {
+        this.presentLoading();
+        this.blackout.getListOfPost().subscribe(newsFeed => {
+            this.newsFeed = [];
+            if (newsFeed) {
+                newsFeed.forEach(p => {
+                    p.medias = [];
+                    let imageHeader;
+                    if (p.featured_media) {
+                        imageHeader = 'http://www.theblackout.fr/wordpress/wp-json/wp/v2/media/' + p.featured_media;
+                    } else if (p['_links']['wp:attachment'] && p['_links']['wp:attachment'].length > 0 && p['_links']['wp:attachment'][0].href) {
+                        imageHeader = p['_links']['wp:attachment'][0].href;
+                    }
+                    if (imageHeader) {
+                        this.blackout.getImageURL(imageHeader).subscribe(image => {
+                            if (Array.isArray(image)) {
+
+                                p.medias = image.filter(m => {
+                                    return m.media_type === 'file' && m.mime_type.match(/audio.*/)
+                                });
+
+                                image = image.filter(m => {
+                                    return m.media_type === 'image';
+                                });
+
+                                image = image[0]
+                            }
+                            if (image) {
+                                if (image.media_details.sizes) {
+                                    p.img = image.media_details.sizes.medium.source_url;
+                                } else if (image.source_url) {
+                                    p.img = image.source_url;
+                                }
+                            } else {
+                                p.img = 'http://www.theblackout.fr/wordpress/wp-content/gallery/wallpapers/blackout-big02.jpg'
+                            }
+                            p.content.rendered = p.content.rendered.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, " ");
+                        });
+                    }
+                    this.newsFeed.push(p);
+                }, this);
+            }
+            this.loader.dismiss();
+        });
+    }
+
+    readMore(post) {
+        this.navCtrl.push(PostDetail, {post: post});
+    }
+
+    presentLoading() {
+        this.loader = this.loadingCtrl.create({
+            content: "Please wait..."
+        });
+        this.loader.present();
+    }
 }

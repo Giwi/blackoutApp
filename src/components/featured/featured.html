@@ -3,7 +3,7 @@
         <div *ngFor="let n of newsFeed">
             <ion-slide>
                 <ion-card>
-                    <h2 [innerHTML]="n.title.rendered"></h2>
+                    <h1 ion-text color="primary" [innerHTML]="n.title.rendered"></h1>
                     <div class="post-img"><img src="{{n.img}}"/></div>
                     <ion-card-content>
                         <p [innerHTML]="n.excerpt.rendered"></p>

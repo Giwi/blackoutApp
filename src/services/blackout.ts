@@ -22,7 +22,6 @@ export class Blackout extends API {
     }
 
 
-
     getListOfFeatured(): Observable<Array<any>> {
         console.log('getListOfFeatured');
         return this.http.get<any>('http://www.theblackout.fr/wordpress/wp-json/wp/v2/posts?categories=81').pipe(
@@ -30,11 +29,24 @@ export class Blackout extends API {
         );
     }
 
-    getImageURL(id: String): Observable<any> {
+    getListOfPost(): Observable<Array<any>> {
+        console.log('getListOfPost');
+        return this.http.get<any>('http://www.theblackout.fr/wordpress/wp-json/wp/v2/posts').pipe(
+            catchError(this.handleError('getListOfPost'))
+        );
+    }
+
+    getImageURL(id: string): Observable<any> {
         console.log('getImageURL', id);
-        return this.http.get<any>('http://www.theblackout.fr/wordpress/wp-json/wp/v2/media/' + id).pipe(
+        return this.http.get<any>(id).pipe(
             catchError(this.handleError('getImageURL'))
         );
     }
 
+    getRSSFeed() : Observable<any> {
+        console.log('getRSSFeed');
+        return this.http.get<any>('http://www.theblackout.fr/wordpress/feed/').pipe(
+            catchError(this.handleError('getRSSFeed'))
+        );
+    }
 }

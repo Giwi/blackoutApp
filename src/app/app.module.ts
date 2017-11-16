@@ -10,12 +10,19 @@ import {StatusBar} from '@ionic-native/status-bar';
 import {SplashScreen} from '@ionic-native/splash-screen';
 import {Featured} from "../components/featured/featured";
 import {Blackout} from "../services/blackout";
-import { HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from "@angular/common/http";
 import {PostDetail} from "../pages/post-detail/post-detail";
+import {ParallaxHeader} from "../directives/parallax-header/parallax-header";
+import {IonicAudioModule, WebAudioProvider, CordovaMediaProvider, defaultAudioProviderFactory} from 'ionic-audio';
+
+export function myCustomAudioProviderFactory() {
+    return (window.hasOwnProperty('cordova')) ? new CordovaMediaProvider() : new WebAudioProvider();
+}
 
 @NgModule({
     declarations: [
         MyApp,
+        ParallaxHeader,
         HomePage,
         Featured,
         ListPage,
@@ -24,7 +31,8 @@ import {PostDetail} from "../pages/post-detail/post-detail";
     imports: [
         BrowserModule,
         IonicModule.forRoot(MyApp),
-        HttpClientModule
+        HttpClientModule,
+        IonicAudioModule.forRoot(defaultAudioProviderFactory),
     ],
     bootstrap: [IonicApp],
     entryComponents: [

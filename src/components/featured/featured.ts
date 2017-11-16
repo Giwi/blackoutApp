@@ -3,7 +3,6 @@ import {Blackout} from '../../services/blackout';
 import {LoadingController, NavController} from "ionic-angular";
 import {Slides} from 'ionic-angular';
 import {PostDetail} from "../../pages/post-detail/post-detail";
-
 @Component({
     selector: 'featured',
     templateUrl: './featured.html'
@@ -25,10 +24,37 @@ export class Featured implements OnInit {
             this.newsFeed = [];
             if (newsFeed) {
                 newsFeed.forEach(p => {
+                    p.medias = [];
+                    let imageHeader;
                     if (p.featured_media) {
-                        this.blackout.getImageURL(p.featured_media).subscribe(image => {
-                            p.img = image.media_details.sizes.medium.source_url;
-                            p.content.rendered = p.content.rendered.replace(/<script[^>]+(>|$)<\/script>/g, '');
+                        imageHeader = 'http://www.theblackout.fr/wordpress/wp-json/wp/v2/media/' + p.featured_media;
+                    } else if (p['_links']['wp:attachment'] && p['_links']['wp:attachment'].length > 0 && p['_links']['wp:attachment'][0].href) {
+                        imageHeader = p['_links']['wp:attachment'][0].href;
+                    }
+                    if (imageHeader) {
+                        this.blackout.getImageURL(imageHeader).subscribe(image => {
+                            if (Array.isArray(image)) {
+
+                                p.medias = image.filter(m => {
+                                    return m.media_type === 'file' && m.mime_type.match(/audio.*/)
+                                });
+
+                                image = image.filter(m => {
+                                    return m.media_type === 'image';
+                                });
+
+                                image = image[0]
+                            }
+                            if (image) {
+                                if (image.media_details.sizes) {
+                                    p.img = image.media_details.sizes.medium.source_url;
+                                } else if (image.source_url) {
+                                    p.img = image.source_url;
+                                }
+                            } else {
+                                p.img = 'http://www.theblackout.fr/wordpress/wp-content/gallery/wallpapers/blackout-big02.jpg'
+                            }
+                            p.content.rendered = p.content.rendered.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, " ");
                         });
                     }
                     this.newsFeed.push(p);
@@ -40,7 +66,7 @@ export class Featured implements OnInit {
     }
 
     readMore(post) {
-        this.navCtrl.push(PostDetail, {post:post});
+        this.navCtrl.push(PostDetail, {post: post});
     }
 
     presentLoading() {

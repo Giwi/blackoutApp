@@ -1,3 +1,10 @@
 page-list {
+  .post-img {
+    max-height: 20rem;
+    overflow: hidden;
+  }
 
+  .post-img img {
+    width: 100%;
+  }
 }

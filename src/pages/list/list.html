@@ -1,23 +1,27 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
-    </button>
-    <ion-title>List</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Les News</ion-title>
+    </ion-navbar>
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
-      <ion-icon [name]="item.icon" item-start></ion-icon>
-      {{item.title}}
-      <div class="item-note" item-end>
-        {{item.note}}
-      </div>
-    </button>
-  </ion-list>
-  <div *ngIf="selectedItem" padding>
-    You navigated here from <b>{{selectedItem.title}}</b>
-  </div>
+    <div *ngFor="let n of newsFeed">
+        <ion-card>
+            <h1 ion-text color="primary" [innerHTML]="n.title.rendered"></h1>
+            <div class="post-img"><img src="{{n.img}}"/></div>
+            <ion-card-content>
+                <p [innerHTML]="n.excerpt.rendered"></p>
+            </ion-card-content>
+            <ion-item>
+                <span item-left>{{n.date | date:'dd/MM/yyyy'}}</span>
+                <button ion-button icon-left clear item-end (click)="readMore(n)">
+                    <ion-icon name="search"></ion-icon>
+                    Lire la suite
+                </button>
+            </ion-item>
+        </ion-card>
+    </div>
 </ion-content>
