@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Les Concerts</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-list *ngFor="let p of newsFeed">
+        <ion-item>
+            <h1 ion-text color="primary" [innerHTML]="p.title"></h1>
+            <p>{{p.start_date}}</p>
+            <address *ngIf="p.venue">
+                <p><b [innerHTML]="p.venue.venue"></b></p>
+                <p><a *ngIf="p.venue.website" href="{{p.venue.website}}"> {{p.venue.website}}</a></p>
+                <p>{{p.venue.address}} {{p.venue.city}}</p>
+            </address>
+            <a ion-button round href="{{p.website}}" target="_blank">Détail</a>
+
+        </ion-item>
+    </ion-list>
+</ion-content>

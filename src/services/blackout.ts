@@ -45,7 +45,7 @@ export class Blackout extends API {
 
     getRSSFeed() : Observable<any> {
         console.log('getRSSFeed');
-        return this.http.get<any>('http://www.theblackout.fr/wordpress/feed/').pipe(
+        return this.http.get<any>('http://www.theblackout.fr/wordpress/wp-json/tribe/events/v1/events/?start_date=2000-10-04&per_page=100').pipe(
             catchError(this.handleError('getRSSFeed'))
         );
     }
