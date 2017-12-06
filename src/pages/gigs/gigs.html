@@ -8,8 +8,8 @@
 </ion-header>
 
 <ion-content>
-    <ion-list *ngFor="let p of newsFeed">
-        <ion-item>
+    <ion-list>
+        <ion-item *ngFor="let p of newsFeed">
             <h1 ion-text color="primary" [innerHTML]="p.title"></h1>
             <p>{{p.start_date}}</p>
             <address *ngIf="p.venue">
@@ -17,8 +17,10 @@
                 <p><a *ngIf="p.venue.website" href="{{p.venue.website}}"> {{p.venue.website}}</a></p>
                 <p>{{p.venue.address}} {{p.venue.city}}</p>
             </address>
-            <a ion-button round href="{{p.website}}" target="_blank">Détail</a>
-
+            <a ion-button icon-left clear href="{{p.website}}" target="_blank">
+                <ion-icon name="search"></ion-icon>
+                Lire la suite
+            </a>
         </ion-item>
     </ion-list>
 </ion-content>
