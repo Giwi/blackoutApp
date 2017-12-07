@@ -13,8 +13,9 @@ import {Blackout} from "../services/blackout";
 import {HttpClientModule} from "@angular/common/http";
 import {PostDetail} from "../pages/post-detail/post-detail";
 import {ParallaxHeader} from "../directives/parallax-header/parallax-header";
-import {IonicAudioModule, WebAudioProvider, CordovaMediaProvider, defaultAudioProviderFactory} from 'ionic-audio';
+import {CordovaMediaProvider, defaultAudioProviderFactory, IonicAudioModule, WebAudioProvider} from 'ionic-audio';
 import {GigsPage} from "../pages/gigs/gigs";
+import {GigDetail} from "../pages/gig-detail/gig-detail";
 
 export function myCustomAudioProviderFactory() {
     return (window.hasOwnProperty('cordova')) ? new CordovaMediaProvider() : new WebAudioProvider();
@@ -28,7 +29,8 @@ export function myCustomAudioProviderFactory() {
         Featured,
         ListPage,
         PostDetail,
-        GigsPage
+        GigsPage,
+        GigDetail
     ],
     imports: [
         BrowserModule,
@@ -42,7 +44,8 @@ export function myCustomAudioProviderFactory() {
         HomePage,
         ListPage,
         PostDetail,
-        GigsPage
+        GigsPage,
+        GigDetail
     ],
     providers: [
         StatusBar,

@@ -43,10 +43,17 @@ export class Blackout extends API {
         );
     }
 
-    getRSSFeed() : Observable<any> {
-        console.log('getRSSFeed');
+    getAllGigs() : Observable<any> {
+        console.log('getAllGigs');
         return this.http.get<any>('http://www.theblackout.fr/wordpress/wp-json/tribe/events/v1/events/?start_date=2000-10-04&per_page=100').pipe(
-            catchError(this.handleError('getRSSFeed'))
+            catchError(this.handleError('getAllGigs'))
+        );
+    }
+
+    getGig(id: string) : Observable<any> {
+        console.log('getGig');
+        return this.http.get<any>('http://www.theblackout.fr/wordpress/wp-json/tribe/events/v1/events/' + id).pipe(
+            catchError(this.handleError('getAllGigs'))
         );
     }
 }

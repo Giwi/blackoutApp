@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {LoadingController, NavController} from 'ionic-angular';
 import {Blackout} from "../../services/blackout";
-import {PostDetail} from "../post-detail/post-detail";
+import {GigDetail} from "../gig-detail/gig-detail";
 
 @Component({
     selector: 'gigs-list',
@@ -16,13 +16,14 @@ export class GigsPage {
 
     ngOnInit() {
         this.presentLoading();
-        this.blackout.getRSSFeed().subscribe(newsFeed => {
+        this.blackout.getAllGigs().subscribe(newsFeed => {
             this.newsFeed = [];
-            console.log(newsFeed)
             if (newsFeed) {
                 newsFeed.events.reverse().forEach(p => {
+                    console.log(p)
                     this.newsFeed.push({
                         title: p.title,
+                        id: p.id,
                         start_date: p.start_date,
                         website: p.website,
                         venue : p.venue
@@ -33,8 +34,9 @@ export class GigsPage {
         });
     }
 
-    readMore(post) {
-        this.navCtrl.push(PostDetail, {post: post});
+    readMore(id) {
+        console.log(id)
+        this.navCtrl.push(GigDetail, {id: id});
     }
 
     presentLoading() {

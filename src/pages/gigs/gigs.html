@@ -11,16 +11,12 @@
     <ion-list>
         <ion-item *ngFor="let p of newsFeed">
             <h1 ion-text color="primary" [innerHTML]="p.title"></h1>
-            <p>{{p.start_date}}</p>
-            <address *ngIf="p.venue">
-                <p><b [innerHTML]="p.venue.venue"></b></p>
-                <p><a *ngIf="p.venue.website" href="{{p.venue.website}}"> {{p.venue.website}}</a></p>
-                <p>{{p.venue.address}} {{p.venue.city}}</p>
-            </address>
-            <a ion-button icon-left clear href="{{p.website}}" target="_blank">
+            <p><ion-icon name="calendar"></ion-icon> {{p.start_date}}</p>
+            <p><ion-icon name="pin"></ion-icon> <span [innerHTML]="p.venue.venue"></span> <b>{{p.venue.city}}</b></p>
+            <button ion-button icon-left clear (click)="readMore(p.id)">
                 <ion-icon name="search"></ion-icon>
-                Lire la suite
-            </a>
+                En savoir plus {{p.id}}
+            </button>
         </ion-item>
     </ion-list>
 </ion-content>
