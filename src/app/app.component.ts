@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import {GigsPage} from "../pages/gigs/gigs";
 import {PlayerPage} from "../pages/player/player";
+import {AboutPage} from "../pages/about/about";
 
 @Component({
   templateUrl: 'app.html'
@@ -27,7 +28,7 @@ export class MyApp {
       { title: 'News', component: ListPage, icon: 'book' },
       { title: 'Agenda', component: GigsPage, icon: 'calendar' },
       { title: 'Player', component: PlayerPage, icon: 'headset' },
-      { title: 'About', component: ListPage, icon: 'information-circle' },
+      { title: 'A propos', component: AboutPage, icon: 'information-circle' },
     ];
 
   }

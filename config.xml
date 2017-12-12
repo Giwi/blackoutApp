@@ -3,7 +3,7 @@
     <name>BlackOut</name>
     <description>The BlackOut app.</description>
     <author email="contact@theblackout.fr" href="http://www.theblackout.fr/">BlackOut</author>
-    <content original-src="index.html" src="http://192.168.60.46:8101" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

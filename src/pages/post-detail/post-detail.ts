@@ -15,7 +15,7 @@ export class PostDetail {
     currentIndex: number = -1;
     currentTrack: ITrackConstraint;
 
-    constructor(public navParams: NavParams, private _audioProvider: AudioProvider, private _cdRef: ChangeDetectorRef) {
+    constructor(public navParams: NavParams, private _cdRef: ChangeDetectorRef) {
         this.post = navParams.get('post');
         this.post.medias.forEach(m => {
             console.log(m.source_url)

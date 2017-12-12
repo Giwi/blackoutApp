@@ -1,0 +1,15 @@
+blackout-about {
+  .header-image {
+    height: 40vh;
+    width: 100%;
+    overflow: hidden;
+    background: url('../assets/imgs/04.jpg') center no-repeat;
+    background-size: cover;
+  }
+  .ctrl-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 250px;
+    margin: 0 auto 20px;
+  }
+}

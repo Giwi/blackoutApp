@@ -17,6 +17,7 @@ import {CordovaMediaProvider, defaultAudioProviderFactory, IonicAudioModule, Web
 import {GigsPage} from "../pages/gigs/gigs";
 import {GigDetail} from "../pages/gig-detail/gig-detail";
 import {PlayerPage} from "../pages/player/player";
+import {AboutPage} from "../pages/about/about";
 
 export function myCustomAudioProviderFactory() {
     return (window.hasOwnProperty('cordova')) ? new CordovaMediaProvider() : new WebAudioProvider();
@@ -32,7 +33,8 @@ export function myCustomAudioProviderFactory() {
         PostDetail,
         GigsPage,
         GigDetail,
-        PlayerPage
+        PlayerPage,
+        AboutPage
     ],
     imports: [
         BrowserModule,
@@ -48,7 +50,8 @@ export function myCustomAudioProviderFactory() {
         PostDetail,
         GigsPage,
         GigDetail,
-        PlayerPage
+        PlayerPage,
+        AboutPage
     ],
     providers: [
         StatusBar,
