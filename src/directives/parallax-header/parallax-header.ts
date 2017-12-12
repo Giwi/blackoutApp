@@ -1,11 +1,5 @@
-import {Directive, ElementRef, Renderer} from '@angular/core';
+import { Directive, ElementRef, Renderer } from '@angular/core';
 
-/**
- * Generated class for the ParallaxHeaderDirective directive.
- *
- * See https://angular.io/api/core/Directive for more info on Angular
- * Directives.
- */
 @Directive({
     selector: '[parallax-header]',
     host: {
@@ -13,21 +7,21 @@ import {Directive, ElementRef, Renderer} from '@angular/core';
         '(window:resize)': 'onWindowResize($event)'
     }
 })
-export class ParallaxHeader {
+export class ParallaxHeaderDirective {
     header: any;
     headerHeight: any;
     translateAmt: any;
     scaleAmt: any;
 
     constructor(public element: ElementRef, public renderer: Renderer) {
-        console.log('Hello ParallaxHeaderDirective Directive');
+
     }
 
     ngOnInit() {
 
-        let content = this.element.nativeElement.getElementsByClassName('scroll-content')[0];
+        const content = this.element.nativeElement.getElementsByClassName('scroll-content')[0];
         this.header = content.getElementsByClassName('header-image')[0];
-        let mainContent = content.getElementsByClassName('main-content')[0];
+        const mainContent = content.getElementsByClassName('main-content')[0];
 
         this.headerHeight = this.header.clientHeight;
 
@@ -52,14 +46,16 @@ export class ParallaxHeader {
     updateParallaxHeader(ev) {
 
         if (ev.scrollTop >= 0) {
-            this.translateAmt = ev.scrollTop / 2;
+            this.translateAmt = ev.scrollTop / 4;
             this.scaleAmt = 1;
         } else {
             this.translateAmt = 0;
             this.scaleAmt = -ev.scrollTop / this.headerHeight + 1;
         }
 
-        this.renderer.setElementStyle(this.header, 'webkitTransform', 'translate3d(0,' + this.translateAmt + 'px,0) scale(' + this.scaleAmt + ',' + this.scaleAmt + ')');
+        this.renderer.setElementStyle(this.header, 'webkitTransform',
+            'translate3d(0,' + this.translateAmt + 'px,0) scale(' + this.scaleAmt + ',' + this.scaleAmt + ')');
 
     }
+
 }

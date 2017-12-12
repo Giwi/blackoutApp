@@ -1,6 +1,8 @@
 page-post-detail {
+  ion-content {
+    margin-top: -30px;
+  }
   .header-image {
-    background-color: #fff;
     height: 40vh;
     width: 100%;
     overflow: hidden;
@@ -11,16 +13,18 @@ page-post-detail {
   }
 
   .main-content {
-    background-color: white;
     width: 100%;
     display: block;
+    background: #303030 !important;
+    padding: 20px;
   }
 
   .main-content p {
     text-align: justify;;
   }
 
-  ion-card img{
-    margin-bottom: 40px;
+  .swiper-slide img {
+    margin: auto;
+    width: 100%;
   }
 }

@@ -15,22 +15,20 @@
 <ion-content parallax-header>
     <div class="header-image"><img src="{{post.img}}"/></div>
     <div class="main-content">
-        <h1 ion-text color="primary" [innerHTML]="post.title.rendered"></h1>
+        <h1 ion-text [innerHTML]="post.title.rendered"></h1>
         <p #content [innerHTML]="post.content.rendered" padding></p>
         <div *ngIf="slideshow.length >0">
-            <h2 ion-text color="secondary" padding>Image gallery</h2>
+            <h2 ion-text padding>Image gallery</h2>
             <ion-slides pager>
-                <div *ngFor="let img of slideshow">
-                    <ion-slide>
-                        <ion-card>
-                            <img src="{{img}}"/>
-                        </ion-card>
-                    </ion-slide>
-                </div>
+                <ion-slide *ngFor="let img of slideshow">
+                    <ion-card>
+                        <img src="{{img}}"/>
+                    </ion-card>
+                </ion-slide>
             </ion-slides>
         </div>
         <div *ngIf="mp3.length >0">
-            <h2 ion-text color="secondary" padding>Media player</h2>
+            <h2 ion-text padding>Media player</h2>
             <ion-list>
                 <audio-track #audio *ngFor="let track of mp3" [track]="track" (onFinish)="onTrackFinished($event)">
                     <ion-item>

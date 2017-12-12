@@ -12,7 +12,7 @@ import {Featured} from "../components/featured/featured";
 import {Blackout} from "../services/blackout";
 import {HttpClientModule} from "@angular/common/http";
 import {PostDetail} from "../pages/post-detail/post-detail";
-import {ParallaxHeader} from "../directives/parallax-header/parallax-header";
+import {ParallaxHeaderDirective} from "../directives/parallax-header/parallax-header";
 import {CordovaMediaProvider, defaultAudioProviderFactory, IonicAudioModule, WebAudioProvider} from 'ionic-audio';
 import {GigsPage} from "../pages/gigs/gigs";
 import {GigDetail} from "../pages/gig-detail/gig-detail";
@@ -24,7 +24,7 @@ export function myCustomAudioProviderFactory() {
 @NgModule({
     declarations: [
         MyApp,
-        ParallaxHeader,
+        ParallaxHeaderDirective,
         HomePage,
         Featured,
         ListPage,
