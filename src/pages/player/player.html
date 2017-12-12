@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-navbar>
+        <button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Les Concerts</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <div class="header-image"></div>
+    <audio-track #audioTrack [track]="currentTrack" [autoplay]="true" (onFinish)="onTrackFinished($event)">
+        <div class="ctrl-wrapper">
+            <div class="ctrl-buttons">
+                <button ion-fab (click)="audioTrack.canPlay ? audioTrack.play() : next()" *ngIf="!audioTrack.isPlaying">
+                    <ion-icon name="play"></ion-icon>
+                </button>
+                <button ion-fab (click)="audioTrack.pause()" *ngIf="audioTrack.isPlaying">
+                    <ion-icon name="pause"></ion-icon>
+                </button>
+                <button ion-fab (click)="next()">
+                    <ion-icon name="skip-forward"></ion-icon>
+                </button>
+            </div>
+            <audio-track-progress-bar duration progress [audioTrack]="audioTrack"
+                                      style="width: 100%; margin: 0 10px"></audio-track-progress-bar>
+            <div class="track-title">
+                <div *ngIf="audioTrack && audioTrack.hasLoaded"><em>{{ audioTrack?.title }}</em></div>
+                <ion-spinner *ngIf="audioTrack && audioTrack.isLoading"></ion-spinner>
+            </div>
+        </div>
+    </audio-track>
+    <ion-list>
+        <ion-item *ngFor="let track of playlist; let i = index">
+            <h2>{{ track.title }}</h2>
+            <p>{{ track.artist }}</p>
+            <button ion-fab item-end (click)="play(track, i)">
+                <ion-icon name="play"></ion-icon>
+            </button>
+        </ion-item>
+    </ion-list>
+</ion-content>

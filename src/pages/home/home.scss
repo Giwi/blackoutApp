@@ -1,3 +1,10 @@
 page-home {
+  .header-image {
+    height: 20vh;
+    width: 100%;
+    overflow: hidden;
+    background: url('../assets/imgs/04.jpg') center no-repeat;
+    background-size: cover;
+  }
 
 }

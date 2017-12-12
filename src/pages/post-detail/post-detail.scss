@@ -1,11 +1,12 @@
 page-post-detail {
   ion-content {
-    margin-top: -30px;
   }
   .header-image {
     height: 40vh;
     width: 100%;
     overflow: hidden;
+    background-size: cover;
+    background-position: bottom;
   }
 
   .header-image img {
@@ -26,5 +27,20 @@ page-post-detail {
   .swiper-slide img {
     margin: auto;
     width: 100%;
+  }
+
+  .ctrl-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+    margin: 0 auto 20px;
+  }
+
+  .ctrl-wrapper {
+  }
+
+  .track-title {
+    display: flex;
+    justify-content: center;
   }
 }

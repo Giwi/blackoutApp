@@ -16,6 +16,7 @@ import {ParallaxHeaderDirective} from "../directives/parallax-header/parallax-he
 import {CordovaMediaProvider, defaultAudioProviderFactory, IonicAudioModule, WebAudioProvider} from 'ionic-audio';
 import {GigsPage} from "../pages/gigs/gigs";
 import {GigDetail} from "../pages/gig-detail/gig-detail";
+import {PlayerPage} from "../pages/player/player";
 
 export function myCustomAudioProviderFactory() {
     return (window.hasOwnProperty('cordova')) ? new CordovaMediaProvider() : new WebAudioProvider();
@@ -30,7 +31,8 @@ export function myCustomAudioProviderFactory() {
         ListPage,
         PostDetail,
         GigsPage,
-        GigDetail
+        GigDetail,
+        PlayerPage
     ],
     imports: [
         BrowserModule,
@@ -45,7 +47,8 @@ export function myCustomAudioProviderFactory() {
         ListPage,
         PostDetail,
         GigsPage,
-        GigDetail
+        GigDetail,
+        PlayerPage
     ],
     providers: [
         StatusBar,

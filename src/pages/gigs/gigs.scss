@@ -1,3 +1,9 @@
 gigs-list {
-
+  .header-image {
+    height: 20vh;
+    width: 100%;
+    overflow: hidden;
+    background: url('../assets/imgs/live.jpg') bottom no-repeat;
+    background-size: cover;
+  }
 }

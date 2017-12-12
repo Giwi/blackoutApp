@@ -21,7 +21,10 @@ export class Blackout extends API {
         super(toastCtrl);
     }
 
-
+    /**
+     *
+     * @returns {Observable<Array<any>>}
+     */
     getListOfFeatured(): Observable<Array<any>> {
         console.log('getListOfFeatured');
         return this.http.get<any>('http://www.theblackout.fr/wordpress/wp-json/wp/v2/posts?categories=81').pipe(
@@ -29,6 +32,10 @@ export class Blackout extends API {
         );
     }
 
+    /**
+     *
+     * @returns {Observable<Array<any>>}
+     */
     getListOfPost(): Observable<Array<any>> {
         console.log('getListOfPost');
         return this.http.get<any>('http://www.theblackout.fr/wordpress/wp-json/wp/v2/posts').pipe(
@@ -36,6 +43,11 @@ export class Blackout extends API {
         );
     }
 
+    /**
+     *
+     * @param {string} id
+     * @returns {Observable<any>}
+     */
     getImageURL(id: string): Observable<any> {
         console.log('getImageURL', id);
         return this.http.get<any>(id).pipe(
@@ -43,17 +55,36 @@ export class Blackout extends API {
         );
     }
 
-    getAllGigs() : Observable<any> {
+    /**
+     *
+     * @returns {Observable<any>}
+     */
+    getAllGigs(): Observable<any> {
         console.log('getAllGigs');
         return this.http.get<any>('http://www.theblackout.fr/wordpress/wp-json/tribe/events/v1/events/?start_date=2000-10-04&per_page=100').pipe(
             catchError(this.handleError('getAllGigs'))
         );
     }
 
-    getGig(id: string) : Observable<any> {
+    /**
+     *
+     * @param {string} id
+     * @returns {Observable<any>}
+     */
+    getGig(id: string): Observable<any> {
         console.log('getGig');
         return this.http.get<any>('http://www.theblackout.fr/wordpress/wp-json/tribe/events/v1/events/' + id).pipe(
             catchError(this.handleError('getAllGigs'))
+        );
+    }
+
+    /**
+     *
+     * @returns {Observable<any>}
+     */
+    getPlayList(): Observable<any> {
+        return this.http.get<any>('http://theblackout.fr/safe/Demo01/json.php').pipe(
+            catchError(this.handleError('getPlayList'))
         );
     }
 }

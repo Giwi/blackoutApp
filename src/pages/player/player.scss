@@ -1,0 +1,26 @@
+blackout-player {
+  .header-image {
+    height: 20vh;
+    width: 100%;
+    overflow: hidden;
+    background: url('../assets/imgs/juicebox_01.gif') center no-repeat;
+    background-size: cover;
+  }
+
+  .ctrl-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 150px;
+    margin: -20px auto 20px;
+  }
+
+  .ctrl-wrapper {
+    margin-right: 20px;
+    margin-left: 20px;
+  }
+
+  .track-title {
+    display: flex;
+    justify-content: center;
+  }
+}

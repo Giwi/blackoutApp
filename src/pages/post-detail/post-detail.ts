@@ -1,6 +1,6 @@
-import {Component, ElementRef, ViewChild, ViewContainerRef} from '@angular/core';
-import {NavController, NavParams} from 'ionic-angular';
-import {AudioProvider} from 'ionic-audio';
+import {ChangeDetectorRef, Component, ElementRef, ViewChild, ViewContainerRef} from '@angular/core';
+import {NavParams} from 'ionic-angular';
+import {AudioProvider, ITrackConstraint} from 'ionic-audio';
 
 @Component({
     selector: 'page-post-detail',
@@ -12,10 +12,10 @@ export class PostDetail {
     post: any;
     slideshow: any[] = [];
     mp3: any[] = [];
-    allTracks: any[];
-    selectedTrack: any;
+    currentIndex: number = -1;
+    currentTrack: ITrackConstraint;
 
-    constructor(public navCtrl: NavController, public navParams: NavParams, private _audioProvider: AudioProvider) {
+    constructor(public navParams: NavParams, private _audioProvider: AudioProvider, private _cdRef: ChangeDetectorRef) {
         this.post = navParams.get('post');
         this.post.medias.forEach(m => {
             console.log(m.source_url)
@@ -31,23 +31,26 @@ export class PostDetail {
         console.log(this.post)
     }
 
-    ngAfterContentInit() {
-        // get all tracks managed by AudioProvider so we can control playback via the API
-        this.allTracks = this._audioProvider.tracks;
+    play(track: ITrackConstraint, index: number) {
+        this.currentTrack = track;
+        this.currentIndex = index;
     }
 
-    playSelectedTrack() {
-        // use AudioProvider to control selected track
-        this._audioProvider.play(this.selectedTrack);
-    }
-
-    pauseSelectedTrack() {
-        // use AudioProvider to control selected track
-        this._audioProvider.pause(this.selectedTrack);
+    next() {
+        // if there is a next track on the list play it
+        if (this.mp3.length > 0 && this.currentIndex >= 0 && this.currentIndex < this.mp3.length - 1) {
+            let i = this.currentIndex + 1;
+            let track = this.mp3[i];
+            this.play(track, i);
+            this._cdRef.detectChanges();  // needed to ensure UI update
+        } else if (this.currentIndex == -1 && this.mp3.length > 0) {
+            // if no track is playing then start with the first track on the list
+            this.play(this.mp3[0], 0);
+        }
     }
 
     onTrackFinished(track: any) {
-        console.log('Track finished', track)
+        this.next();
     }
 
     ionViewDidLoad() {

@@ -12,7 +12,7 @@
 
 </ion-header>
 
-<ion-content parallax-header>
+<ion-content>
     <div class="header-image"><img src="{{post.img}}"/></div>
     <div class="main-content">
         <h1 ion-text [innerHTML]="post.title.rendered"></h1>
@@ -29,22 +29,35 @@
         </div>
         <div *ngIf="mp3.length >0">
             <h2 ion-text padding>Media player</h2>
+            <audio-track #audioTrack [track]="currentTrack" [autoplay]="true" (onFinish)="onTrackFinished($event)">
+                <div class="ctrl-wrapper">
+                    <div class="ctrl-buttons">
+                        <button ion-fab (click)="audioTrack.canPlay ? audioTrack.play() : next()" *ngIf="!audioTrack.isPlaying">
+                            <ion-icon name="play"></ion-icon>
+                        </button>
+                        <button ion-fab (click)="audioTrack.pause()" *ngIf="audioTrack.isPlaying">
+                            <ion-icon name="pause"></ion-icon>
+                        </button>
+                        <button ion-fab (click)="next()">
+                            <ion-icon name="skip-forward"></ion-icon>
+                        </button>
+                    </div>
+                    <audio-track-progress-bar duration progress [audioTrack]="audioTrack"
+                                              style="width: 100%; margin: 0 10px"></audio-track-progress-bar>
+                    <div class="track-title">
+                        <div *ngIf="audioTrack && audioTrack.hasLoaded"><em>{{ audioTrack?.title }}</em></div>
+                        <ion-spinner *ngIf="audioTrack && audioTrack.isLoading"></ion-spinner>
+                    </div>
+                </div>
+            </audio-track>
             <ion-list>
-                <audio-track #audio *ngFor="let track of mp3" [track]="track" (onFinish)="onTrackFinished($event)">
-                    <ion-item>
-                        <ion-thumbnail item-left>
-                            <img src="{{audio.art}}">
-                            <audio-track-play dark [audioTrack]="audio">
-                                <ion-spinner></ion-spinner>
-                            </audio-track-play>
-                        </ion-thumbnail>
-                        <div item-content style="width:100%">
-                            <p><strong>{{audio.title}}</strong> ⚬ <em>{{audio.artist}}</em></p>
-                            <audio-track-progress-bar dark duration progress [audioTrack]="audio"
-                                                      [ngStyle]="{visibility: audio.completed > 0 ? 'visible' : 'hidden'}"></audio-track-progress-bar>
-                        </div>
-                    </ion-item>
-                </audio-track>
+                <ion-item *ngFor="let track of mp3; let i = index">
+                    <h2>{{ track.title }}</h2>
+                    <p>{{ track.artist }}</p>
+                    <button ion-fab item-end (click)="play(track, i)">
+                        <ion-icon name="play"></ion-icon>
+                    </button>
+                </ion-item>
             </ion-list>
         </div>
     </div>
