@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, ElementRef, ViewChild, ViewContainerRef} from '@angular/core';
 import {NavParams} from 'ionic-angular';
-import {AudioProvider, ITrackConstraint} from 'ionic-audio';
+import {ITrackConstraint} from 'ionic-audio';
 
 @Component({
     selector: 'page-post-detail',

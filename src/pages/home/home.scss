@@ -7,4 +7,51 @@ page-home {
     background-size: cover;
   }
 
+  @media (min-width: 567px) {
+    featured {
+      padding-top: 1%;
+      .post-img {
+        max-height: 40rem;
+      }
+      ion-card, .slide-zoom {
+        height: 100%;
+      }
+
+      .swiper-container {
+        height: calc(80vh - 50px);
+      }
+      ion-item {
+        position: fixed;
+        bottom: -50px;
+      }
+
+      ion-card-content {
+        height: 15rem;
+      }
+
+    }
+  }
+  @media (max-width: 567px) {
+    featured {
+      .swiper-container {
+        height: calc(80vh - 40px);
+      }
+      .post-img {
+        max-height: 15rem;
+        overflow: hidden;
+      }
+      ion-card h1 {
+        height: 8rem;
+      }
+      ion-card-content {
+        height: 15rem;
+        max-height: 15rem;
+      }
+      ion-slide {
+        align-items: flex-start !important;
+        -webkit-box-pack: start;
+        height: 100px !important;
+      }
+    }
+  }
 }
